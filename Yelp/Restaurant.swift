@@ -46,15 +46,20 @@ class Restaurant: NSObject {
 
             let location = restaurantDict["location"] as NSDictionary
             let addressArray = location["address"] as NSArray
-            let neighborhoodArray = location["neighborhoods"] as NSArray
-            var add = "Address N/A"
             
+            var neighborhood = "Neighborhood N/A"
+            if let neighborhoodArray = location["neighborhoods"] as? NSArray {
+                if neighborhoodArray.count > 0 {
+                    neighborhood = neighborhoodArray[0] as NSString
+                }
+            }
+
+            var add = "Address N/A"
             if addressArray.count > 0 {
                 add = addressArray[0] as String
-            }
+            }            
             
-            let neigh = neighborhoodArray[0] as String
-            let address = "\(add), \(neigh)"
+            let address = "\(add), \(neighborhood)"
             var categoryString = ""
             
             let categories = restaurantDict["categories"] as NSArray

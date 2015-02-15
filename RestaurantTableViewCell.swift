@@ -20,7 +20,6 @@ class RestaurantTableViewCell: UITableViewCell {
     @IBOutlet weak var ratingImage: UIImageView!
     @IBOutlet weak var distance: UILabel!
     @IBOutlet weak var reviewsCount: UILabel!
-    @IBOutlet weak var dollarAmount: UILabel!
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var category: UILabel!
     

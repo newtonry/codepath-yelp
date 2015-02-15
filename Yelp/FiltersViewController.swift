@@ -14,7 +14,7 @@ protocol FiltersViewControllerDelegate {
 }
 
 
-class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
+class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, SegmentedCellDelegate {
 
     // I can't make this weak?!?
     var delegate: FiltersViewControllerDelegate?
@@ -37,6 +37,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     ]
     
     var sortBy = 0
+    
+    
+    let radiusMeterValues = [0, 200, 1000, 5000]
+    let radiusOptions = ["Best match", "200m", "1km", "5km"]
+    
+
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -72,16 +78,28 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 println(filters)
             case "deals_filter":
                 filters["deals_filter"] = String(value.hashValue)
-
-            
         default:
             return
         }
-
-//        println(value)
-//        println("Cell did update value")
     }
 
+    // Segmented Cell methods
+    func newSegmentSelected(cell: SegmentedTableViewCell) {
+        let selectedIndex = cell.segmentedControl.selectedSegmentIndex
+//        println(radiusMeterValues[selectedIndex])
+        
+        if cell.paramType! == "radius_filter" {
+            
+            
+            filters["radius_filter"] = String(radiusMeterValues[selectedIndex])
+            
+            
+        }
+    }
+    
+    
+    
+    
     // Table view methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sections.count
@@ -100,7 +118,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         switch categoryName {
             case "Radius":
-                let cell = tableView.dequeueReusableCellWithIdentifier("SliderSwitchCell", forIndexPath: indexPath) as SliderSwitchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("SegmentedCell", forIndexPath: indexPath) as SegmentedTableViewCell
+                cell.delegate = self
+                cell.paramType = "radius_filter"
+                cell.fillWithOptions(radiusOptions)
+                
                 return cell
             case "Sort By":
                 let cell = tableView.dequeueReusableCellWithIdentifier("CheckboxCell", forIndexPath: indexPath) as CheckboxTableViewCell

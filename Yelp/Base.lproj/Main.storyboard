@@ -57,12 +57,6 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO1-dP-Sbc">
-                                                    <rect key="frame" x="296" y="35" width="14" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.34175701530612246" green="0.34175701530612246" blue="0.34175701530612246" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="185 Berry St., Soma" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oed-JJ-Z32">
                                                     <rect key="frame" x="120" y="58" width="113" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -91,10 +85,8 @@
                                                 <constraint firstAttribute="trailing" secondItem="PDu-hn-C2M" secondAttribute="trailing" constant="10" id="Gx9-wl-EPA"/>
                                                 <constraint firstItem="bIj-OP-Hwl" firstAttribute="leading" secondItem="WAU-ox-cD6" secondAttribute="trailing" constant="10" id="Ixj-T9-Qfp"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="WAU-ox-cD6" secondAttribute="bottom" constant="10" id="Kkm-nu-ZiQ"/>
-                                                <constraint firstItem="gO1-dP-Sbc" firstAttribute="top" secondItem="PDu-hn-C2M" secondAttribute="bottom" constant="10" id="QiQ-ED-AeI"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ASg-Wa-9B3" secondAttribute="bottom" constant="10" id="Rpc-Km-Ulb"/>
                                                 <constraint firstAttribute="trailing" secondItem="PDu-hn-C2M" secondAttribute="trailing" constant="10" id="Sig-Oq-rVI"/>
-                                                <constraint firstAttribute="trailing" secondItem="gO1-dP-Sbc" secondAttribute="trailing" constant="10" id="WeU-fJ-K8e"/>
                                                 <constraint firstItem="Oed-JJ-Z32" firstAttribute="top" secondItem="bIj-OP-Hwl" secondAttribute="bottom" constant="5" id="XAo-i6-Drq"/>
                                                 <constraint firstItem="ASg-Wa-9B3" firstAttribute="top" secondItem="Oed-JJ-Z32" secondAttribute="bottom" constant="5" id="XwQ-4e-aOe"/>
                                                 <constraint firstItem="7Ty-aN-qRl" firstAttribute="top" secondItem="AyI-gY-Xrk" secondAttribute="top" constant="10" id="Zcg-bP-xRQ"/>
@@ -109,7 +101,6 @@
                                             <outlet property="address" destination="Oed-JJ-Z32" id="i5Y-xc-25m"/>
                                             <outlet property="category" destination="ASg-Wa-9B3" id="dL0-Np-TRb"/>
                                             <outlet property="distance" destination="PDu-hn-C2M" id="GwN-IU-xam"/>
-                                            <outlet property="dollarAmount" destination="gO1-dP-Sbc" id="y4p-tO-lQn"/>
                                             <outlet property="name" destination="7Ty-aN-qRl" id="LmO-YT-D3G"/>
                                             <outlet property="ratingImage" destination="bIj-OP-Hwl" id="trV-YZ-gWH"/>
                                             <outlet property="reviewsCount" destination="YeZ-3P-tXa" id="S7A-5X-TkM"/>
@@ -194,11 +185,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="XnV-x9-Lkp">
-                                                    <rect key="frame" x="46" y="7" width="207" height="31"/>
+                                                    <rect key="frame" x="55" y="7" width="257" height="31"/>
                                                 </slider>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pgm-mF-fQX">
-                                                    <rect key="frame" x="261" y="7" width="51" height="31"/>
-                                                </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.0 mi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idg-Xe-28f">
                                                     <rect key="frame" x="10" y="14" width="37" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -207,18 +195,15 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="XnV-x9-Lkp" firstAttribute="leading" secondItem="Idg-Xe-28f" secondAttribute="trailing" constant="1" id="0ir-Kn-2yn"/>
+                                                <constraint firstItem="XnV-x9-Lkp" firstAttribute="leading" secondItem="Idg-Xe-28f" secondAttribute="trailing" constant="10" id="79P-Am-U9R"/>
                                                 <constraint firstAttribute="centerY" secondItem="XnV-x9-Lkp" secondAttribute="centerY" id="G0E-1U-JoH"/>
-                                                <constraint firstAttribute="centerY" secondItem="pgm-mF-fQX" secondAttribute="centerY" id="IeZ-Y6-lUj"/>
-                                                <constraint firstItem="Idg-Xe-28f" firstAttribute="leading" secondItem="ELo-Nw-B80" secondAttribute="leading" constant="10" id="jhO-xq-5J6"/>
+                                                <constraint firstAttribute="trailing" secondItem="XnV-x9-Lkp" secondAttribute="trailing" constant="10" id="lev-1p-tR5"/>
                                                 <constraint firstAttribute="centerY" secondItem="Idg-Xe-28f" secondAttribute="centerY" id="m9D-ED-ccb"/>
-                                                <constraint firstItem="pgm-mF-fQX" firstAttribute="leading" secondItem="XnV-x9-Lkp" secondAttribute="trailing" constant="10" id="s1Q-4m-Q5b"/>
-                                                <constraint firstAttribute="trailing" secondItem="pgm-mF-fQX" secondAttribute="trailing" constant="10" id="zfW-ht-owY"/>
+                                                <constraint firstItem="Idg-Xe-28f" firstAttribute="leading" secondItem="ELo-Nw-B80" secondAttribute="leading" constant="10" id="phd-ML-EIu"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="distanceLabel" destination="Idg-Xe-28f" id="mry-aW-pYB"/>
-                                            <outlet property="onSwitch" destination="pgm-mF-fQX" id="evy-XL-y0t"/>
                                             <outlet property="slider" destination="XnV-x9-Lkp" id="iVQ-qq-m9j"/>
                                         </connections>
                                     </tableViewCell>
@@ -242,6 +227,34 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="label" destination="BbN-Tl-dBv" id="Kbq-s3-vj5"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SegmentedCell" id="rWF-aw-xzl" customClass="SegmentedTableViewCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rWF-aw-xzl" id="yt3-bA-uVR">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="70h-4f-YSW">
+                                                    <rect key="frame" x="10" y="10" width="300" height="24"/>
+                                                    <segments>
+                                                        <segment title="First"/>
+                                                        <segment title="Second"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="newSegmentSelected:" destination="rWF-aw-xzl" eventType="valueChanged" id="Twv-1v-jTj"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="70h-4f-YSW" firstAttribute="top" secondItem="yt3-bA-uVR" secondAttribute="top" constant="10" id="D39-BC-v0G"/>
+                                                <constraint firstAttribute="bottom" secondItem="70h-4f-YSW" secondAttribute="bottom" constant="10" id="Q7z-uV-YqF"/>
+                                                <constraint firstAttribute="trailing" secondItem="70h-4f-YSW" secondAttribute="trailing" constant="10" id="ag5-DN-hGB"/>
+                                                <constraint firstItem="70h-4f-YSW" firstAttribute="leading" secondItem="yt3-bA-uVR" secondAttribute="leading" constant="10" id="reG-Mc-giZ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="segmentedControl" destination="70h-4f-YSW" id="gRI-YC-WSL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

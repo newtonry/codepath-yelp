@@ -12,7 +12,6 @@ class SliderSwitchTableViewCell: UITableViewCell {
     
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var slider: UISlider!
-    @IBOutlet weak var onSwitch: UISwitch!
     
     override func awakeFromNib() {
         super.awakeFromNib()

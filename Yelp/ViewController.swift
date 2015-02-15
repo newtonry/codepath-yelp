@@ -48,17 +48,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func searchAndUpdateTableView() {
         client.searchWithParameters(searchParameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-
-            
-            
-            
             let restaurantDictionaryArray = response["businesses"] as NSArray
             self.restaurants = Restaurant.createRestaurantsFromYelpArray(restaurantDictionaryArray) as NSArray
             self.tableView.reloadData()
-            
-//            println(operation)
-            
-            
             }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println(error)
         }
@@ -106,20 +98,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     func didChangeFilters(filtersViewController: FiltersViewController, filters: NSDictionary) {
-//        searchParameters.addEntriesFromDictionary(filters)
-//
-//        for (paramName, paramValue) in searchParameters {
-////            paramName.
-//            
-//
-//            
-////            searchParameters[paramName as] = paramValue as String
-//        }
-//        
-        
-        
+        for (paramName, paramValue) in filters {
+            searchParameters[paramName as String] = paramValue as String
+        }
         searchAndUpdateTableView()
-        println(searchParameters)
     }
     
     
