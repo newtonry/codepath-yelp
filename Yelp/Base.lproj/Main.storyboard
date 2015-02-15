@@ -147,20 +147,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" id="LOP-Sm-rUz" customClass="SwitchTableViewCell" customModule="Yelp" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="53" id="LOP-Sm-rUz" customClass="SwitchTableViewCell" customModule="Yelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LOP-Sm-rUz" id="y0s-wU-BCC">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="DJi-6U-SXg">
-                                                    <rect key="frame" x="261" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="261" y="10" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="switchValueChanged:" destination="LOP-Sm-rUz" eventType="valueChanged" id="TyZ-Dt-Uvb"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Characteristic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMf-jH-POf">
-                                                    <rect key="frame" x="20" y="13" width="96" height="18"/>
+                                                    <rect key="frame" x="20" y="17" width="96" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -171,6 +171,7 @@
                                                 <constraint firstAttribute="centerY" secondItem="pMf-jH-POf" secondAttribute="centerY" id="gJF-Rb-MT6"/>
                                                 <constraint firstItem="pMf-jH-POf" firstAttribute="leading" secondItem="y0s-wU-BCC" secondAttribute="leading" constant="20" id="mgU-hD-rMm"/>
                                                 <constraint firstAttribute="trailing" secondItem="DJi-6U-SXg" secondAttribute="trailing" constant="10" id="nzf-6j-aYO"/>
+                                                <constraint firstItem="DJi-6U-SXg" firstAttribute="top" secondItem="y0s-wU-BCC" secondAttribute="top" constant="10" id="zTW-5s-ysf"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -207,21 +208,23 @@
                                             <outlet property="slider" destination="XnV-x9-Lkp" id="iVQ-qq-m9j"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CheckboxCell" id="0Ta-KH-NHd" customClass="CheckboxTableViewCell" customModule="Yelp" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CheckboxCell" rowHeight="50" id="0Ta-KH-NHd" customClass="CheckboxTableViewCell" customModule="Yelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Ta-KH-NHd" id="N9p-4q-MSe">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best Match" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BbN-Tl-dBv">
-                                                    <rect key="frame" x="20" y="12" width="84" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <rect key="frame" x="20" y="15" width="79" height="19"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="BbN-Tl-dBv" secondAttribute="centerY" id="3ix-Rw-NK2"/>
+                                                <constraint firstItem="BbN-Tl-dBv" firstAttribute="top" secondItem="N9p-4q-MSe" secondAttribute="top" constant="15" id="KvL-pH-XKb"/>
+                                                <constraint firstAttribute="bottom" secondItem="BbN-Tl-dBv" secondAttribute="bottom" constant="15" id="WQP-CF-Ffa"/>
                                                 <constraint firstItem="BbN-Tl-dBv" firstAttribute="leading" secondItem="N9p-4q-MSe" secondAttribute="leading" constant="20" id="lMp-VD-9VF"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -241,9 +244,6 @@
                                                         <segment title="First"/>
                                                         <segment title="Second"/>
                                                     </segments>
-                                                    <connections>
-                                                        <action selector="newSegmentSelected:" destination="rWF-aw-xzl" eventType="valueChanged" id="Twv-1v-jTj"/>
-                                                    </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>

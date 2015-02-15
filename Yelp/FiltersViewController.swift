@@ -50,8 +50,22 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.delegate = self
         self.tableView.dataSource = self
         tableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "TableViewHeaderView")
+        
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+
+        
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     func onCancelButton() {
         dismissViewControllerAnimated(true, completion: nil)
     }
