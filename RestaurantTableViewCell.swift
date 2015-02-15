@@ -34,7 +34,7 @@ class RestaurantTableViewCell: UITableViewCell {
 
     func fillWithRestaurant(restaurant: Restaurant) {
         name.text = restaurant.name
-        distance.text = "\(restaurant.distance!) mi"
+        distance.text = NSString(format: "%.1f km", restaurant.distance!)//"\(restaurant.distance!) km"
         reviewsCount.text = "\(restaurant.numberOfReviews!) reviews"
         address.text = restaurant.address
         category.text = restaurant.category

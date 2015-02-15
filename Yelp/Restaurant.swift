@@ -74,9 +74,10 @@ class Restaurant: NSObject {
             
             
             let distance = restaurantDict["distance"] as Float
+            var distanceInKilometers = distance/1000
 
             restaurants.addObject(Restaurant(imageUrl: imageUrl, name: name, ratingImageUrl: ratingImageUrl, numberOfReviews: numberOfReviews, address: address, category: categoryString,
-                distance: distance))
+                distance: distanceInKilometers))
             
         }
         
