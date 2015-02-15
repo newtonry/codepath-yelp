@@ -13,8 +13,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var client: YelpClient!
     var restaurants: NSArray?
     var searchBar: UISearchBar?
-    var searchParameters: NSMutableDictionary = ["term":"", "ll": "37.7787151387515,-122.396358157657"]
+//    var searchParameters: NSMutableDictionary = ["term":"", "ll": "37.7787151387515,-122.396358157657"]
     let locationManager = CLLocationManager()
+    let paramsManager = ParamsManager()
     
     let yelpConsumerKey = "4XsQYHhLRG6ilyEMopHl2w"
     let yelpConsumerSecret = "pWCAyX_NSUM9NDXO_a7C70f64Iw"
@@ -47,6 +48,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func searchAndUpdateTableView() {
+        let searchParameters = paramsManager.processParams()
+        
         client.searchWithParameters(searchParameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let restaurantDictionaryArray = response["businesses"] as NSArray
             self.restaurants = Restaurant.createRestaurantsFromYelpArray(restaurantDictionaryArray) as NSArray
@@ -81,7 +84,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        searchParameters["term"] = searchBar.text
+//        searchParameters["term"] = searchBar.text
+        
+        paramsManager.updateTerm(searchBar.text)
+        paramsManager.processParams()
+        
+        
         self.navigationController?.view.endEditing(true)
         searchAndUpdateTableView()
         
@@ -97,10 +105,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         presentViewController(navigationController, animated: true, completion: nil)
     }
 
+
     func didChangeFilters(filtersViewController: FiltersViewController, filters: NSDictionary) {
-        for (paramName, paramValue) in filters {
-            searchParameters[paramName as String] = paramValue as String
-        }
+//        for (paramName, paramValue) in filters {
+////            searchParameters[paramName as String] = paramValue as String
+//        }
+        
+        
+        
+        
         searchAndUpdateTableView()
     }
     

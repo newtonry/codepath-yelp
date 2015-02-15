@@ -18,23 +18,27 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
     // I can't make this weak?!?
     var delegate: FiltersViewControllerDelegate?
+
+    let paramsManager = ParamsManager()
     var filters: NSMutableDictionary = [:]
     var selectedCategories: NSMutableSet = NSMutableSet()
-
-    // It seems to make more sense to make an enum instead of doing it this way, but this works for now
-    let categoryCodeDict = [
-        "Beer Hall": "beerhall",
-        "Czech": "czech",
-        "German": "german"
-    ]
 
     let sections = [
         ("Sort By", ["Best Match", "Distance", "Highest Rated"]),
         ("Deals", ["Show only restaurants with deals"]),
         ("Radius", ["3"]),
-        ("Categories", ["Beer Hall", "Czech", "German"]),
-
+        ("Categories", ["Breweries", "Czech", "Seafood"]),
+        
     ]
+
+    
+    // It seems to make more sense to make an enum instead of doing it this way, but this works for now
+    let categoryCodeDict = [
+        "Breweries": "breweries",
+        "Czech": "czech",
+        "Seafood": "seafood"
+    ]
+
     
     var sortBy = 0
     
@@ -74,10 +78,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
         switch cell.paramType! {
             case "category_filter":
-                filters["category_filter"] = cell.paramValue!
-                println(filters)
+                paramsManager.addCategory(cell.paramValue!)
+
             case "deals_filter":
-                filters["deals_filter"] = String(value.hashValue)
+                paramsManager.updateDeals(value)
         default:
             return
         }
@@ -89,11 +93,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 //        println(radiusMeterValues[selectedIndex])
         
         if cell.paramType! == "radius_filter" {
-            
-            
-            filters["radius_filter"] = String(radiusMeterValues[selectedIndex])
-            
-            
+            paramsManager.updateRadius(radiusMeterValues[selectedIndex])
         }
     }
     
@@ -170,7 +170,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         if sections[indexPath.section].0 == "Sort By" {
             sortBy = indexPath.row
             // for now index maps to the params you would pass into yelp. Definitely not best practice though
-            filters["sort"] = indexPath.row
+            paramsManager.updateSort(indexPath.row)
+            
+//            filters["sort"] = indexPath.row
 //            println(filters)
         }
         
