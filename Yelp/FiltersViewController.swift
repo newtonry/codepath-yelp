@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol FiltersViewControllerDelegate {
-    func didChangeFilters(filtersViewController: FiltersViewController, filters: NSDictionary)
+    func didChangeFilters(filtersViewController: FiltersViewController)
 }
 
 
@@ -18,10 +18,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
     // I can't make this weak?!?
     var delegate: FiltersViewControllerDelegate?
-
     let paramsManager = ParamsManager()
-    var filters: NSMutableDictionary = [:]
-    var selectedCategories: NSMutableSet = NSMutableSet()
 
     let sections = [
         ("Sort By", ["Best Match", "Distance", "Highest Rated"]),
@@ -30,8 +27,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         ("Categories", ["Breweries", "Czech", "Seafood"]),
         
     ]
-
-    
     // It seems to make more sense to make an enum instead of doing it this way, but this works for now
     let categoryCodeDict = [
         "Breweries": "breweries",
@@ -39,14 +34,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         "Seafood": "seafood"
     ]
 
-    
-    var sortBy = 0
-    
-    
     let radiusMeterValues = [0, 200, 1000, 5000]
     let radiusOptions = ["Best match", "200m", "1km", "5km"]
     
-
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -67,19 +57,19 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func onSearchButton() {
-        self.delegate?.didChangeFilters(self, filters: filters)
+        self.delegate?.didChangeFilters(self)
         dismissViewControllerAnimated(true, completion: nil)
     }
 
-    
-    
     // Switch Cell methods
     func didUpdateValue(cell: SwitchTableViewCell, value: Bool) {
-
         switch cell.paramType! {
             case "category_filter":
-                paramsManager.addCategory(cell.paramValue!)
-
+                if value {
+                    paramsManager.addCategory(cell.paramValue! as NSString)
+                } else {
+                    paramsManager.removeCategory(cell.paramValue! as NSString)
+                }
             case "deals_filter":
                 paramsManager.updateDeals(value)
         default:
@@ -90,16 +80,20 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     // Segmented Cell methods
     func newSegmentSelected(cell: SegmentedTableViewCell) {
         let selectedIndex = cell.segmentedControl.selectedSegmentIndex
-//        println(radiusMeterValues[selectedIndex])
-        
         if cell.paramType! == "radius_filter" {
             paramsManager.updateRadius(radiusMeterValues[selectedIndex])
         }
     }
     
-    
-    
-    
+    // Checkbox cell methods. Pretty sure this isn't updating it the right way
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if sections[indexPath.section].0 == "Sort By" {
+            // for now index maps to the params you would pass into yelp. Definitely not best practice though
+            paramsManager.updateSort(indexPath.row)
+        }
+        tableView.reloadData()
+    }
+
     // Table view methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sections.count
@@ -122,13 +116,15 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 cell.delegate = self
                 cell.paramType = "radius_filter"
                 cell.fillWithOptions(radiusOptions)
-                
+                // This is silly to find it this way, should have created a better object for this setting
+                let selectedIndex = find(radiusMeterValues, paramsManager.getRadius()) as Int!
+                cell.segmentedControl.selectedSegmentIndex = selectedIndex
                 return cell
             case "Sort By":
                 let cell = tableView.dequeueReusableCellWithIdentifier("CheckboxCell", forIndexPath: indexPath) as CheckboxTableViewCell
                 cell.label.text = optionsInSection[indexPath.row]
                 cell.canonicalName = optionsInSection[indexPath.row]
-                if indexPath.row == sortBy {
+                if indexPath.row == paramsManager.getSort() {
                     cell.accessoryType = UITableViewCellAccessoryType.Checkmark
                 } else {
                     cell.accessoryType = UITableViewCellAccessoryType.None
@@ -138,6 +134,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as SwitchTableViewCell
                 cell.delegate = self
                 cell.paramType = "deals_filter"
+                cell.switchItem.setOn(paramsManager.getDeals(), animated: false)
                 cell.filterName.text = optionsInSection[indexPath.row]
                 return cell
             case "Categories":
@@ -145,7 +142,13 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 cell.delegate = self
                 cell.filterName.text = optionsInSection[indexPath.row]
                 cell.paramType = "category_filter"
-                cell.paramValue = categoryCodeDict[optionsInSection[indexPath.row]] as String!
+                let paramValue = categoryCodeDict[optionsInSection[indexPath.row]] as String!
+                cell.paramValue = paramValue
+
+                if paramsManager.getCategories().containsObject(paramValue) {
+                    cell.switchItem.setOn(true, animated: false)
+                }
+                
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as SwitchTableViewCell
@@ -156,52 +159,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier("TableViewHeaderView") as UITableViewHeaderFooterView
-        
         header.textLabel.text = sections[section].0
-        
         return header
         
     }
-    
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if sections[indexPath.section].0 == "Sort By" {
-            sortBy = indexPath.row
-            // for now index maps to the params you would pass into yelp. Definitely not best practice though
-            paramsManager.updateSort(indexPath.row)
-            
-//            filters["sort"] = indexPath.row
-//            println(filters)
-        }
-        
-        tableView.reloadData()
-    }
-    
-    
-    
-    
-    
-//    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell") as SwitchTableViewCell
-//        cell.delegate = self
-//        
-//        let category = categories[indexPath.row] as NSDictionary
-//        let isOn = selectedCategories.containsObject(category)
-//        cell.switchItem.setOn(isOn, animated: true)
-//        cell.filterName.text = category["name"] as? String
-//        
-//        
-//        return cell
-//        
-//    }
 
-    
-    
-    
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

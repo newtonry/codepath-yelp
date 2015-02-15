@@ -50,6 +50,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func searchAndUpdateTableView() {
         let searchParameters = paramsManager.processParams()
         
+        println(searchParameters)
+        
+        
         client.searchWithParameters(searchParameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let restaurantDictionaryArray = response["businesses"] as NSArray
             self.restaurants = Restaurant.createRestaurantsFromYelpArray(restaurantDictionaryArray) as NSArray
@@ -87,7 +90,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        searchParameters["term"] = searchBar.text
         
         paramsManager.updateTerm(searchBar.text)
-        paramsManager.processParams()
         
         
         self.navigationController?.view.endEditing(true)
@@ -106,7 +108,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
 
-    func didChangeFilters(filtersViewController: FiltersViewController, filters: NSDictionary) {
+    func didChangeFilters(filtersViewController: FiltersViewController) {
 //        for (paramName, paramValue) in filters {
 ////            searchParameters[paramName as String] = paramValue as String
 //        }

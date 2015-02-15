@@ -26,18 +26,16 @@ class ParamsManager {
             defaults.setObject([], forKey: "category_filter")
         }
 
-        if defaults.objectForKey("deals") == nil {
-            defaults.setObject(false, forKey: "deals")
+        if defaults.objectForKey("deals_filter") == nil {
+            defaults.setObject(false, forKey: "deals_filter")
         }
 
         if defaults.objectForKey("sort") == nil {
             defaults.setObject(0, forKey: "sort")
         }
-
         
-        
-        
-        
+//        
+//        
 //        
 //        defaults.setObject("", forKey: "term")
 //        defaults.setObject(0, forKey: "radius_filter")
@@ -59,7 +57,7 @@ class ParamsManager {
     }
     
     func updateDeals(areOn: Bool) {
-        defaults.setObject(areOn, forKey: "deals")
+        defaults.setObject(areOn, forKey: "deals_filter")
         defaults.synchronize()
     }
 
@@ -68,30 +66,37 @@ class ParamsManager {
         defaults.synchronize()
     }
     
+    func getRadius() -> Int {
+        return defaults.objectForKey("radius_filter") as Int
+    }
 
-//    func getRadius
-    
-//    func getSort() -> Int {
-//        
-//    }
-    
+    func getDeals() -> Bool {
+        return defaults.objectForKey("deals_filter") as Bool
 
+    }
+
+    func getSort() -> Int {
+        return defaults.objectForKey("sort") as Int
+    }
     
-    
-    
-    
+    func getCategories() -> NSArray {
+        return defaults.objectForKey("category_filter") as [String]
+    }
+
     
     func addCategory(category: NSString) {
-        var categories = defaults.objectForKey("category_filter") as NSMutableArray
-        categories.addObject(category)
+        var categories = defaults.objectForKey("category_filter") as [String]
+        categories.append(category)
         defaults.setObject(categories, forKey: "category_filter")
         defaults.synchronize()
     }
 
     func removeCategory(category: NSString) {
-        var categories = defaults.objectForKey("category_filter") as NSMutableArray
-        categories.removeObject(category)
-        defaults.setObject(categories, forKey: "category_filter")
+        var categories = defaults.objectForKey("category_filter") as [String]
+
+        var updatedCategories = categories.filter({ $0 != category })
+        
+        defaults.setObject(updatedCategories, forKey: "category_filter")
         defaults.synchronize()
     }
     
@@ -100,7 +105,7 @@ class ParamsManager {
         let term = defaults.objectForKey("term") as NSString
         let radius = defaults.objectForKey("radius_filter") as Int
         let categories = defaults.objectForKey("category_filter") as [String]
-        let deals = defaults.objectForKey("deals") as Bool
+        let deals = defaults.objectForKey("deals_filter") as Bool
         let sort = defaults.objectForKey("sort") as Int
         
         var paramsDict: NSMutableDictionary = [:]
@@ -118,7 +123,7 @@ class ParamsManager {
         }
 
         if deals {
-            paramsDict["deals"] = deals
+            paramsDict["deals_filter"] = deals
         }
 
         if sort != 0 {
