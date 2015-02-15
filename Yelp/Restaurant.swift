@@ -81,7 +81,5 @@ class Restaurant: NSObject {
         }
         
         return restaurants as NSArray
-        
-        
     }
 }

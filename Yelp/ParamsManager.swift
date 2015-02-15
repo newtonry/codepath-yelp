@@ -33,25 +33,17 @@ class ParamsManager {
         if defaults.objectForKey("sort") == nil {
             defaults.setObject(0, forKey: "sort")
         }
-        
-//        
-//        
-//        
-//        defaults.setObject("", forKey: "term")
-//        defaults.setObject(0, forKey: "radius_filter")
-//        defaults.setObject([], forKey: "category_filter")
-//        defaults.setObject(false, forKey: "deals")
-//        defaults.setObject(0, forKey: "sort")
+        defaults.synchronize()
     }
     
-    
-    // Could just use normal setters and getters here but I want to keep this separate
     func updateTerm(term: NSString) {
         defaults.setObject(term, forKey: "term")
         defaults.synchronize()
     }
     
     func updateRadius(radius: Int) {
+        
+        
         defaults.setObject(radius, forKey: "radius_filter")
         defaults.synchronize()
     }
@@ -97,7 +89,6 @@ class ParamsManager {
         defaults.synchronize()
     }
     
-    
     func processParams() -> NSMutableDictionary {
         let term = defaults.objectForKey("term") as NSString
         let radius = defaults.objectForKey("radius_filter") as Int
@@ -126,8 +117,8 @@ class ParamsManager {
         if sort != 0 {
             paramsDict["sort"] = sort
         }
-        
-        
+
+        // Location really should be set later, but this is here just in case
         paramsDict["ll"] = "37.7787151387515,-122.396358157657"
         
         return paramsDict

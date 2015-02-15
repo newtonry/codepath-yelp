@@ -35,7 +35,6 @@ class SegmentedTableViewCell: UITableViewCell {
     func fillWithOptions(options: NSArray) {
         var ind = 0
         segmentedControl.removeAllSegments()
-        
         for title in options {
             segmentedControl.insertSegmentWithTitle(title as String, atIndex: ind, animated: false)
             ind += 1

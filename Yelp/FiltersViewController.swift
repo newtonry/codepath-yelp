@@ -19,7 +19,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     // I can't make this weak?!?
     var delegate: FiltersViewControllerDelegate?
     let paramsManager = ParamsManager()
-
+    @IBOutlet weak var tableView: UITableView!
+    
     let sections = [
         ("Sort By", ["Best Match", "Distance", "Highest Rated"]),
         ("Deals", ["Show only restaurants with deals"]),
@@ -36,10 +37,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
     let radiusMeterValues = [0, 200, 1000, 5000]
     let radiusOptions = ["Best match", "200m", "1km", "5km"]
-    
-    
-    
-    @IBOutlet weak var tableView: UITableView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

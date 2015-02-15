@@ -22,7 +22,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let yelpToken = "s71uVHG94CpkEDTNEC3py71lZbkB5qA_"
     let yelpTokenSecret = "PP_96B9-MdQ-L85jXOvWwD3ySNw"
     
-    
     @IBOutlet weak var tableView: UITableView!
 
     
@@ -45,12 +44,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func searchAndUpdateTableView() {
         var searchParameters = paramsManager.processParams()
         searchParameters["ll"] = getCurrentLocationAsString()
-        
-        
-        println(searchParameters)
-        
-        
-        
         client.searchWithParameters(searchParameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let restaurantDictionaryArray = response["businesses"] as NSArray
             self.restaurants = Restaurant.createRestaurantsFromYelpArray(restaurantDictionaryArray) as NSArray
@@ -82,11 +75,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    
     override func viewDidAppear(animated: Bool) {
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }
-    
 
     // Search bar
     func setupSearchBar() {

@@ -244,6 +244,9 @@
                                                         <segment title="First"/>
                                                         <segment title="Second"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="newSegmentSelected:" destination="rWF-aw-xzl" eventType="valueChanged" id="TF9-Gd-GhY"/>
+                                                    </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
