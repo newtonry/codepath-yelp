@@ -17,11 +17,9 @@ class Restaurant: NSObject {
     let category: String?
     let distance: Float?
     
-    
-    
-    
     init(imageUrl: String, name: String, ratingImageUrl: String, numberOfReviews: Int, address: String, category: String, distance: Float) {
         self.imageUrl = imageUrl
+        
         self.name = name
         self.ratingImageUrl = ratingImageUrl
         self.numberOfReviews = numberOfReviews
@@ -61,18 +59,19 @@ class Restaurant: NSObject {
             
             let address = "\(add), \(neighborhood)"
             var categoryString = ""
-            
-            let categories = restaurantDict["categories"] as NSArray
-            
-            for category in categories {
-                let categoryDisplayName = category[0] as NSString
-                
-                if categoryString == "" {
-                    categoryString = "\(categoryDisplayName)"
-                } else {
-                    categoryString = "\(categoryString), \(categoryDisplayName)"
+
+            if let categories = restaurantDict["categories"] as? NSArray {
+                for category in categories {
+                    let categoryDisplayName = category[0] as NSString
+                    
+                    if categoryString == "" {
+                        categoryString = "\(categoryDisplayName)"
+                    } else {
+                        categoryString = "\(categoryString), \(categoryDisplayName)"
+                    }
                 }
             }
+            
             
             let distance = restaurantDict["distance"] as Float
 

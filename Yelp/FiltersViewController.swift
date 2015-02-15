@@ -43,29 +43,22 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "onCancelButton")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: UIBarButtonItemStyle.Plain, target: self, action: "onSearchButton")
-
+        setupNavBar()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         tableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "TableViewHeaderView")
-        
         self.tableView.rowHeight = UITableViewAutomaticDimension
 
-        
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    func setupNavBar() {
+        self.navigationController?.navigationBar.barTintColor = UIColor.redColor()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "onCancelButton")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: UIBarButtonItemStyle.Plain, target: self, action: "onSearchButton")
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
+    }
+
     func onCancelButton() {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -117,7 +110,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         return sections[section].1.count
     }
     
-
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
   
         let optionsInSection = sections[indexPath.section].1
@@ -168,8 +160,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as SwitchTableViewCell
                 return cell
         }
-        
-        
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

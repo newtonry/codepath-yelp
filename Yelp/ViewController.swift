@@ -35,22 +35,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         setupSearchBar()
         setupLocationManager()
-        
+        setupNavBar()
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filters", style: UIBarButtonItemStyle.Plain, target: self, action: "onFiltersButton")
-        
 
         client = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
-        
         searchAndUpdateTableView()
-        
     }
     
     func searchAndUpdateTableView() {
-        let searchParameters = paramsManager.processParams()
+        var searchParameters = paramsManager.processParams()
+        searchParameters["ll"] = getCurrentLocationAsString()
+        
         
         println(searchParameters)
+        
         
         
         client.searchWithParameters(searchParameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
@@ -62,17 +60,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    func setupNavBar() {
+        self.navigationController?.navigationBar.barTintColor = UIColor.redColor()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filters", style: UIBarButtonItemStyle.Plain, target: self, action: "onFiltersButton")
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
+    }
+    
     // Location Manager
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
-        println(locationManager.location)
-        
-        // TODO need to add this stuff to the plist!
-    
     }
+    
+    func getCurrentLocationAsString() -> String {
+        if let location = locationManager.location {
+            return "\(location.coordinate.latitude),\(location.coordinate.longitude)"
+        } else {
+            return "37.7787151387515,-122.396358157657"
+        }
+    }
+    
     
     override func viewDidAppear(animated: Bool) {
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -109,17 +118,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 
     func didChangeFilters(filtersViewController: FiltersViewController) {
-//        for (paramName, paramValue) in filters {
-////            searchParameters[paramName as String] = paramValue as String
-//        }
-        
-        
-        
-        
         searchAndUpdateTableView()
     }
-    
-    
     
     // Table view handlers
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

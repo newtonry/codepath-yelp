@@ -82,7 +82,6 @@ class ParamsManager {
     func getCategories() -> NSArray {
         return defaults.objectForKey("category_filter") as [String]
     }
-
     
     func addCategory(category: NSString) {
         var categories = defaults.objectForKey("category_filter") as [String]
@@ -93,15 +92,13 @@ class ParamsManager {
 
     func removeCategory(category: NSString) {
         var categories = defaults.objectForKey("category_filter") as [String]
-
         var updatedCategories = categories.filter({ $0 != category })
-        
         defaults.setObject(updatedCategories, forKey: "category_filter")
         defaults.synchronize()
     }
     
     
-    func processParams() -> NSDictionary {
+    func processParams() -> NSMutableDictionary {
         let term = defaults.objectForKey("term") as NSString
         let radius = defaults.objectForKey("radius_filter") as Int
         let categories = defaults.objectForKey("category_filter") as [String]
