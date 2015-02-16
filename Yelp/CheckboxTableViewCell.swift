@@ -8,15 +8,10 @@
 
 import UIKit
 
-//protocol CheckboxCellDelegate {
-//    func cellWasSelected(cell: CheckboxTableViewCell)
-//}
-
-
 class CheckboxTableViewCell: UITableViewCell {
 
     @IBOutlet weak var label: UILabel!
-//    var delegate: CheckboxCellDelegate?
+
     var canonicalName: String? // This seems like a pretty crappy way of doing it
     
     override func awakeFromNib() {
@@ -26,10 +21,6 @@ class CheckboxTableViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-//        self.delegate?.cellWasSelected(self)
-        
-        
         // Configure the view for the selected state
     }
 

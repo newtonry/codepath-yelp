@@ -10,7 +10,6 @@ import UIKit
 
 protocol SegmentedCellDelegate {
     func newSegmentSelected(cell: SegmentedTableViewCell)
-
 }
 
 
@@ -44,5 +43,4 @@ class SegmentedTableViewCell: UITableViewCell {
     @IBAction func newSegmentSelected(sender: UISegmentedControl) {
         self.delegate!.newSegmentSelected(self)
     }
-    
 }

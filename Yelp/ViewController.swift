@@ -8,7 +8,7 @@ import UIKit
 import CoreLocation
 
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate, UISearchBarDelegate, CLLocationManagerDelegate, RestaurantCellDelegate {
 
     var client: YelpClient!
     var restaurants: NSMutableArray?
@@ -24,7 +24,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let yelpTokenSecret = "PP_96B9-MdQ-L85jXOvWwD3ySNw"
     
     @IBOutlet weak var tableView: UITableView!
-
+    // These would be in their own custom view normally
+    @IBOutlet weak var hiddenTitle: UILabel!
+    @IBOutlet weak var hiddenDescription: UILabel!
+    
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -37,10 +40,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         setupLocationManager()
         setupNavBar()
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        
-//        tableView.addPullToRefreshWithActionHandler(refreshHandler)
         tableView.addInfiniteScrollingWithActionHandler(refreshHandler)
-        
         
         client = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
         searchAndUpdateTableView()
@@ -49,7 +49,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func refreshHandler() {
         searchAndUpdateTableView()
     }
-    
     
     func searchAndUpdateTableView() {
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -136,6 +135,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCellWithIdentifier("RestaurantCell") as RestaurantTableViewCell
         let restaurant = restaurants![indexPath.row] as Restaurant
         cell.fillWithRestaurant(restaurant)
+        cell.delegate = self
+        
         return cell
     }
     
@@ -151,20 +152,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCellWithIdentifier("RestaurantCell") as RestaurantTableViewCell
         let restaurant = restaurants![indexPath.row] as Restaurant
         cell.fillWithRestaurant(restaurant)
-        
         cell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
         return cell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height + 1
     }
     
+    // For the hidden description view!
+    func cellHighlighted(cell: RestaurantTableViewCell) {
+        hiddenTitle.text = cell.name.text
+        hiddenDescription.text = cell.review
+        
+        UIView.animateWithDuration(0.75, animations: {
+            self.tableView.alpha = 0
+        })
+    }
+
+    func cellUnhighlighted(cell: RestaurantTableViewCell) {
+        UIView.animateWithDuration(0.75, animations: {
+            self.tableView.alpha = 1
+        })
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
-    
-    
-    
 }
 

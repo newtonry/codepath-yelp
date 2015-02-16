@@ -22,7 +22,6 @@ class SwitchTableViewCell: UITableViewCell {
     // why cant this be weak?
     var delegate: SwitchCellDelegate?
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         

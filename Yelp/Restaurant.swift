@@ -16,8 +16,9 @@ class Restaurant: NSObject {
     let address: String?
     let category: String?
     let distance: Float?
+    let review: String?
     
-    init(imageUrl: String, name: String, ratingImageUrl: String, numberOfReviews: Int, address: String, category: String, distance: Float) {
+    init(imageUrl: String, name: String, ratingImageUrl: String, numberOfReviews: Int, address: String, category: String, distance: Float, review: String) {
         self.imageUrl = imageUrl
         
         self.name = name
@@ -26,6 +27,7 @@ class Restaurant: NSObject {
         self.address = address
         self.category = category
         self.distance = distance
+        self.review = review
     }
 
     class func createRestaurantsFromYelpArray(yelpArray: NSArray) -> NSArray {
@@ -71,13 +73,18 @@ class Restaurant: NSObject {
                     }
                 }
             }
+           
+            var review = ""
+            if let rev = restaurantDict["snippet_text"] as? NSString {
+                review = rev
+            }
             
             
             let distance = restaurantDict["distance"] as Float
             var distanceInKilometers = distance/1000
 
             restaurants.addObject(Restaurant(imageUrl: imageUrl, name: name, ratingImageUrl: ratingImageUrl, numberOfReviews: numberOfReviews, address: address, category: categoryString,
-                distance: distanceInKilometers))
+                distance: distanceInKilometers, review: review))
             
         }
         

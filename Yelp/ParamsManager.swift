@@ -44,7 +44,6 @@ class ParamsManager {
         defaults.synchronize()
     }
     
-    
     func updateTerm(term: NSString) {
         defaults.setObject(term, forKey: "term")
         defaults.synchronize()
@@ -130,7 +129,4 @@ class ParamsManager {
         
         return paramsDict
     }
-    
-    
-    
 }
