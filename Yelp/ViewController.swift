@@ -13,7 +13,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var client: YelpClient!
     var restaurants: NSArray?
     var searchBar: UISearchBar?
-//    var searchParameters: NSMutableDictionary = ["term":"", "ll": "37.7787151387515,-122.396358157657"]
     let locationManager = CLLocationManager()
     let paramsManager = ParamsManager()
     
@@ -74,10 +73,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return "37.7787151387515,-122.396358157657"
         }
     }
-    
-    override func viewDidAppear(animated: Bool) {
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-    }
 
     // Search bar
     func setupSearchBar() {
@@ -136,8 +131,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
         return cell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height + 1
     }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -27,7 +27,7 @@ class RestaurantTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         name.preferredMaxLayoutWidth = name.frame.width
-        self.thumbnail.layer.cornerRadius = 50
+        self.thumbnail.layer.cornerRadius = 35
         self.thumbnail.clipsToBounds = true
         // Initialization code
     }
@@ -44,8 +44,6 @@ class RestaurantTableViewCell: UITableViewCell {
         
         let ratingImageUrl = NSURL(string: restaurant.ratingImageUrl!)
         ratingImage.setImageWithURL(ratingImageUrl)
-        
-
     }
     
     override func layoutSubviews() {
