@@ -41,11 +41,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func searchAndUpdateTableView() {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         var searchParameters = paramsManager.processParams()
         searchParameters["ll"] = getCurrentLocationAsString()
         client.searchWithParameters(searchParameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let restaurantDictionaryArray = response["businesses"] as NSArray
             self.restaurants = Restaurant.createRestaurantsFromYelpArray(restaurantDictionaryArray) as NSArray
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
             self.tableView.reloadData()
             }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println(error)
