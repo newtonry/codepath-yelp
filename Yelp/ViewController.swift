@@ -127,6 +127,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     func didChangeFilters(filtersViewController: FiltersViewController) {
         offset = 0
+        // A temp fix for the descrip persistence bug
+        self.tableView.alpha = 1
         searchAndUpdateTableView()
     }
     

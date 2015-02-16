@@ -61,8 +61,8 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="descriptionButtonPressed:" destination="dAk-4M-kUa" eventType="touchDown" id="tRz-0U-ksQ"/>
+                                                        <action selector="restaurantCellExited:" destination="dAk-4M-kUa" eventType="touchUpInside" id="ECG-L5-LcM"/>
                                                         <action selector="restaurantCellExited:" destination="dAk-4M-kUa" eventType="touchDragExit" id="ErH-6H-C9J"/>
-                                                        <action selector="restaurantCellExited:" destination="dAk-4M-kUa" eventType="touchUpInside" id="dkC-BT-H9c"/>
                                                     </connections>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WAU-ox-cD6">

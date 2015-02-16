@@ -19,6 +19,7 @@
 		C523C3DF1A91341E00140264 /* ParamsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523C3DE1A91341E00140264 /* ParamsManager.swift */; };
 		C589F4A41A8BDCFA000AEA01 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C589F4A31A8BDCFA000AEA01 /* RestaurantTableViewCell.swift */; };
 		C589F4A61A8BDE2C000AEA01 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C589F4A51A8BDE2C000AEA01 /* Restaurant.swift */; };
+		C5C606C71A918F81001BDEF0 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C606C61A918F81001BDEF0 /* File.swift */; };
 		C5EA9ED91A8D1E5200F98072 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA9ED81A8D1E5200F98072 /* FiltersViewController.swift */; };
 		C5EA9EDD1A8D417800F98072 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA9EDC1A8D417800F98072 /* SwitchTableViewCell.swift */; };
 		C5EA9EDF1A8E965600F98072 /* SliderSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA9EDE1A8E965600F98072 /* SliderSwitchTableViewCell.swift */; };
@@ -55,6 +56,7 @@
 		C56EF0CE844A4EE5819C72AF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C589F4A31A8BDCFA000AEA01 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestaurantTableViewCell.swift; path = ../RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		C589F4A51A8BDE2C000AEA01 /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		C5C606C61A918F81001BDEF0 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		C5EA9ED81A8D1E5200F98072 /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		C5EA9EDC1A8D417800F98072 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		C5EA9EDE1A8E965600F98072 /* SliderSwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderSwitchTableViewCell.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				C5EA9EE01A8EA0EB00F98072 /* CheckboxTableViewCell.swift */,
 				C5EA9EDE1A8E965600F98072 /* SliderSwitchTableViewCell.swift */,
 				C523C3DC1A91216000140264 /* SegmentedTableViewCell.swift */,
+				C5C606C61A918F81001BDEF0 /* File.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C523C3DD1A91216000140264 /* SegmentedTableViewCell.swift in Sources */,
+				C5C606C71A918F81001BDEF0 /* File.swift in Sources */,
 				C589F4A61A8BDE2C000AEA01 /* Restaurant.swift in Sources */,
 				C589F4A41A8BDCFA000AEA01 /* RestaurantTableViewCell.swift in Sources */,
 				C5EA9EDF1A8E965600F98072 /* SliderSwitchTableViewCell.swift in Sources */,
