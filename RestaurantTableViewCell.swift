@@ -6,11 +6,6 @@
 //
 //
 
-
-
-//tableview.rowheight = UITableViewAutomaticDimension
-
-
 import UIKit
 
 class RestaurantTableViewCell: UITableViewCell {

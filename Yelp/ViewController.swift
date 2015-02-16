@@ -11,10 +11,12 @@ import CoreLocation
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
 
     var client: YelpClient!
-    var restaurants: NSArray?
+    var restaurants: NSMutableArray?
     var searchBar: UISearchBar?
     let locationManager = CLLocationManager()
     let paramsManager = ParamsManager()
+    var offset = 0
+    
     
     let yelpConsumerKey = "4XsQYHhLRG6ilyEMopHl2w"
     let yelpConsumerSecret = "pWCAyX_NSUM9NDXO_a7C70f64Iw"
@@ -35,21 +37,46 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         setupLocationManager()
         setupNavBar()
         self.tableView.rowHeight = UITableViewAutomaticDimension
-
+        
+//        tableView.addPullToRefreshWithActionHandler(refreshHandler)
+        tableView.addInfiniteScrollingWithActionHandler(refreshHandler)
+        
+        
         client = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
         searchAndUpdateTableView()
     }
+    
+    func refreshHandler() {
+        searchAndUpdateTableView()
+    }
+    
     
     func searchAndUpdateTableView() {
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         var searchParameters = paramsManager.processParams()
         searchParameters["ll"] = getCurrentLocationAsString()
+        searchParameters["offset"] = offset
+        
         client.searchWithParameters(searchParameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let restaurantDictionaryArray = response["businesses"] as NSArray
-            self.restaurants = Restaurant.createRestaurantsFromYelpArray(restaurantDictionaryArray) as NSArray
+            
+            // This a totally unsustainable way of checking whether we're scrolling or not
+            if self.offset != 0 {
+                let newRestaurants = Restaurant.createRestaurantsFromYelpArray(restaurantDictionaryArray) as NSArray
+                for restaurant in newRestaurants {
+                    self.restaurants?.addObject(restaurant)
+                    self.tableView.infiniteScrollingView.stopAnimating()
+                }
+            } else {
+                self.restaurants = Restaurant.createRestaurantsFromYelpArray(restaurantDictionaryArray) as? NSMutableArray
+            }
+
+            self.offset = self.restaurants!.count
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             self.tableView.reloadData()
+            
             }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                self.paramsManager.resetDefaults() // This is really only for my own debugging purposes
                 println(error)
         }
     }
@@ -84,17 +111,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-//        searchParameters["term"] = searchBar.text
-        
+        offset = 0
         paramsManager.updateTerm(searchBar.text)
-        
-        
         self.navigationController?.view.endEditing(true)
         searchAndUpdateTableView()
-        
         println("Searching for \(searchBar.text)")
     }
-    
     
     // Filter view controller handling
     func onFiltersButton() {
@@ -104,8 +126,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         presentViewController(navigationController, animated: true, completion: nil)
     }
 
-
     func didChangeFilters(filtersViewController: FiltersViewController) {
+        offset = 0
         searchAndUpdateTableView()
     }
     
@@ -138,6 +160,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    
+    
     
     
 }

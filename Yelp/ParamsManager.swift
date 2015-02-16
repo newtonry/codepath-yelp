@@ -33,8 +33,17 @@ class ParamsManager {
         if defaults.objectForKey("sort") == nil {
             defaults.setObject(0, forKey: "sort")
         }
+    }
+
+    func resetDefaults() {
+        defaults.setObject("", forKey: "term")
+        defaults.setObject(0, forKey: "radius_filter")
+        defaults.setObject([], forKey: "category_filter")
+        defaults.setObject(false, forKey: "deals_filter")
+        defaults.setObject(0, forKey: "sort")
         defaults.synchronize()
     }
+    
     
     func updateTerm(term: NSString) {
         defaults.setObject(term, forKey: "term")
@@ -42,8 +51,6 @@ class ParamsManager {
     }
     
     func updateRadius(radius: Int) {
-        
-        
         defaults.setObject(radius, forKey: "radius_filter")
         defaults.synchronize()
     }
