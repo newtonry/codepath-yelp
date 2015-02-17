@@ -66,10 +66,10 @@ class RestaurantTableViewCell: UITableViewCell {
     }
     
     @IBAction func descriptionButtonPressed(sender: UIButton) {
-        self.delegate?.cellHighlighted(self)
+//        self.delegate?.cellHighlighted(self)
     }
 
     @IBAction func restaurantCellExited(sender: AnyObject) {
-        self.delegate?.cellUnhighlighted(self)
+//        self.delegate?.cellUnhighlighted(self)
     }
 }
